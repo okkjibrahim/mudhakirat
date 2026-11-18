@@ -38,11 +38,15 @@ class FcmService : FirebaseMessagingService() {
         /** Asks Firebase for the current token and caches it for the web page to read. */
         fun fetchToken(ctx: Context) {
             try {
-                FirebaseMessaging.getInstance().token.addOnSuccessListener { t ->
-                    if (!t.isNullOrEmpty()) save(ctx, t)
-                }
+                FirebaseMessaging.getInstance().token
+                    .addOnSuccessListener { t ->
+                        if (!t.isNullOrEmpty()) save(ctx, t)
+                    }
+                    .addOnFailureListener { e ->
+                        android.util.Log.w("FcmService", "Unable to fetch FCM token: ${e.message}")
+                    }
             } catch (e: Exception) {
-                e.printStackTrace()
+                android.util.Log.w("FcmService", "FCM initialization unavailable: ${e.message}")
             }
         }
     }

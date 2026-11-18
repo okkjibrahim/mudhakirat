@@ -252,7 +252,8 @@ button:active{transform:scale(.95)}
 .enter .rise{animation:rise .3s var(--ease) both;animation-delay:calc(var(--d,0) * 25ms)}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes drop{from{opacity:0;transform:translateY(-8px) scale(.9)}to{opacity:1;transform:none}}
-@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.28)}100%{transform:scale(1)}}
+@keyframes pop{0%{transform:scale(.88)}45%{transform:scale(1.18)}75%{transform:scale(.96)}100%{transform:scale(1)}}
+@keyframes chkRing{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 36%,transparent)}100%{box-shadow:0 0 0 7px color-mix(in srgb,var(--ok) 0%,transparent)}}
 @keyframes out{to{opacity:0;transform:translateX(24px);max-height:0;padding-block:0}}
 
 .card{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0;box-shadow:var(--sh)}
@@ -294,15 +295,17 @@ button:active{transform:scale(.95)}
 .gh{display:flex;align-items:center;gap:8px;font-size:calc(12px*var(--fs,1));font-weight:700;color:var(--muted);letter-spacing:.04em;padding-bottom:4px}
 .gh.late{color:var(--hot)}
 .gh em{font-style:normal;background:var(--track);border-radius:99px;padding:0 8px;font-weight:600}
-.trow{display:flex;gap:12px;align-items:center;padding-block:11px;border-top:1px solid var(--line);overflow:hidden;max-height:120px;transition:opacity .3s}
+.trow{display:flex;gap:12px;align-items:center;padding:11px 3px;border-top:1px solid var(--line);overflow:hidden;max-height:120px;transition:opacity .3s var(--ease)}
 .trow:first-of-type{border-top:0}
 .trow.out{animation:out .26s var(--ease) forwards}
-.chk{flex:none;width:28px;height:28px;border-radius:50%;border:2px solid var(--muted);background:transparent;display:grid;place-items:center;padding:0;color:transparent;transition:background .25s,border-color .25s,color .25s,transform .18s}
-.chk.pop{animation:pop .4s var(--spring)}
-.trow.done .chk{background:var(--ok);border-color:var(--ok);color:#fff}
-.ttl{font-weight:500;overflow-wrap:anywhere;transition:color .3s}
-.trow.done .ttl{color:var(--muted);text-decoration:line-through}
-.trow.done{opacity:.7}
+.chk{flex:none;width:28px;height:28px;border-radius:50%;border:2px solid var(--muted);background:transparent;display:grid;place-items:center;padding:0;color:transparent;transition:background-color .35s var(--ease),border-color .35s var(--ease),color .28s var(--ease),transform .22s var(--ease)}
+.chk svg{transform:scale(.5);opacity:0;transition:transform .34s var(--spring),opacity .22s var(--ease)}
+.chk.pop{animation:pop .42s var(--ease) both,chkRing .52s var(--ease) both}
+.trow.done .chk{background-color:var(--ok);border-color:var(--ok);color:#fff}
+.trow.done .chk svg,.sprow.done .chk svg{transform:scale(1);opacity:1}
+.ttl{font-weight:500;overflow-wrap:anywhere;transition:color .3s var(--ease),opacity .3s var(--ease)}
+.trow.done .ttl{color:var(--muted);text-decoration:line-through;opacity:.7}
+.trow.done .meta{opacity:.7;transition:opacity .3s var(--ease)}
 .meta{display:flex;gap:8px;flex-wrap:wrap;font-size:calc(12.5px*var(--fs,1));color:var(--muted);align-items:center;margin-top:2px}
 .sp{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:1px 10px 1px 8px;background:color-mix(in srgb,var(--c) 16%,var(--surface));color:var(--ink);font-weight:500}
 .sp i{width:7px;height:7px;border-radius:50%;background:var(--c)}
@@ -2878,7 +2881,7 @@ document.addEventListener('click',function(e){
   else if(a==='toggle'){
     var k=S.tasks.filter(function(x){return x.id===id})[0];if(!k)return;if(k.done&&locked()){lockMsg();return}k.done=!k.done;if(k.done)markAct();save();
     var row=el.closest('.trow');row.classList.toggle('done',k.done);el.setAttribute('aria-checked',k.done);
-    el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');
+    el.classList.remove('pop');if(k.done){void el.offsetWidth;el.classList.add('pop')}
     clearTimeout(rt);rt=setTimeout(function(){render()},550)}
   else if(a==='deltask'){
     var r=el.closest('.trow');if(r)r.classList.add('out');

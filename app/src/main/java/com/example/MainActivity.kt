@@ -83,7 +83,7 @@ class MainActivity : ComponentActivity() {
         // Same colour as the page background, so there is no white flash while the page loads
         val night = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
             Configuration.UI_MODE_NIGHT_YES
-        val bg = if (night) 0xFF0A0E1C.toInt() else 0xFFF1F3F9.toInt()
+        val bg = if (night) 0xFF14120B.toInt() else 0xFFFFFDF7.toInt()
         window.setBackgroundDrawable(ColorDrawable(bg))
 
         // Plain WebView as the content view (no Compose layer in between = faster start, less work per frame)

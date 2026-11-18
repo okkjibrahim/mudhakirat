@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "540620394327",
+    "project_id": "mudhakirati-814db",
+    "storage_bucket": "mudhakirati-814db.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540620394327:android:1e476c7fe44e70e18c3812",
+        "android_client_info": {
+          "package_name": "com.aistudio.mudhakirati.qzpxvm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZDjl4fizHjkNJfAAbxWY35e2w7u2rA0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
